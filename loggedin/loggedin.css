@@ -1,0 +1,17 @@
+div#userinfo {
+	position: relative;
+	float: left;
+	width: 50%;
+	height: 80%;
+}
+
+div#recently {
+	position: relative;
+	float: right;
+	width: 50%;
+	height: 80%;
+}
+
+.main {
+	margin-top: 40px;
+}

@@ -1,0 +1,33 @@
+div#userinfo {
+	position: relative;
+	float: left;
+	width: 50%;
+	height: 80%;
+}
+
+div#recently {
+	position: relative;
+	float: right;
+	width: 50%;
+	height: 80%;
+}
+
+div#inner_recent {
+	height: 600px;
+	overflow-y: auto;
+}
+
+.main {
+	margin-top: 40px;
+	margin-left: 10px;
+}
+
+.navbar-nav .dropdown:hover > .dropdown-menu { 
+  display: block; 
+}
+.navbar-nav .dropdown:hover > a[data-toggle=dropdown] + .dropdown-menu { 
+  display: none;
+}
+.navbar-nav .dropdown.open > a[data-toggle=dropdown] + .dropdown-menu { 
+  display: block; 
+}
