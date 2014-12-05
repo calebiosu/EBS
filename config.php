@@ -1,6 +1,6 @@
 <?php
-define('DB_HOST', 'localhost'); //use your host here
-define('DB_USER', 'root'); //use your database user here
-define('DB_PASSWORD', 'password'); //use your password here
-define('DB_DATABASE', 'EBS'); //use your database name here
+define('DB_HOST', 'sql2.freemysqlhosting.net'); //use your host here
+define('DB_USER', 'sql260441'); //use your database user here
+define('DB_PASSWORD', 'kL8*mE8!'); //use your password here
+define('DB_DATABASE', 'sql260441'); //use your database name here
 ?>
