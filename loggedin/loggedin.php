@@ -37,12 +37,6 @@
 			<div id="userinfo">
 				<h2> <?php echo $username; ?>'s profile </h2>
 			</div>
-			<div id="recently">
-				<h2> Recently Watched </h2>
-				<div id="inner_recent">
-					<!--php script to display videos-->
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

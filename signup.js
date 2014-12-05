@@ -18,12 +18,12 @@ $(function()
             $('.email-check').show();
             $('.email-check').fadeIn(400).html('<img src="images/ajax-loader.gif" /> ');
 
-            var String = 'email='+ availname;
+            var string = 'email='+ availname;
 
             $.ajax({
                 type: "POST",
                 url: "email-check.php",
-                data: String,
+                data: string,
                 cache: false,
                 success: function(result){
                     var result=remove_whitespaces(result);

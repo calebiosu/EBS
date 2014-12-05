@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 		$sth->fetch();
 
 		// Hashing the password with its hash as the salt returns the same hash
-		if ( crypt($password, $hash) == $hash ) {
+		if ( md5($password) == $hash ) {
 			$loginok = TRUE;
 		}
 
