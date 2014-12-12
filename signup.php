@@ -18,6 +18,8 @@
         		<input type="text" class="form-control" name="email" id="email" placeholder="Enter Email Address" required /><span class="email-check"></span>
         		<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required />
         		<input type="password" class="form-control" name="password-confirm" id="password-confirm" class="password-confirm" placeholder="Confirm Password" required /><span class="pass-check"></span>
+				<label class="radio-inline"><input type="radio" name="priv" value="seller">Book Seller</label>
+				<label class="radio-inline"><input type="radio" name="priv" value="regular">Regular User</label>
 				<button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" disabled="true">Submit</button>
 			</form>
 		</div>

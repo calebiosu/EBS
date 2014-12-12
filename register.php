@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 	$username = $link->real_escape_string(trim($_POST['username']));
 	$email = $link->real_escape_string(trim($_POST['email']));
 	$password = $link->real_escape_string(trim($_POST['password']));
+	$priv = ($link->real_escape_string(trim($_POST['priv']))=='seller' ? 1 : 2);
 
 	/* password encryption in db
 	$cost = 10;
@@ -22,11 +23,13 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 	*/
 	$hash = md5($password);
 	$query = "INSERT into `Users` "
-			."(firstname, lastname, username, email, hash) "
-			."VALUES ('$firstname', '$lastname', '$username', '$email', '$hash');";
+			."(priv, firstname, lastname, username, email, hash) "
+			."VALUES ('$priv', '$firstname', '$lastname', '$username', '$email', '$hash');";
 
 	$res = mysqli_query($link,$query);
 	
+	echo $_POST['priv'];
+	echo $priv;
 	if($res){
 		header("Location: ./index.php?success");
 	}

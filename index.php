@@ -8,7 +8,7 @@ if (!(isset($_SESSION['username']) && $_SESSION['username'] != '')) {
 	//header ("Location: index.php");
 }
 else{
-	header ("Location: ./loggedin/loggedin.php");
+	header ("Location: ./loggedin/index.php");
 }
 ?>
 

@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 	}
 	
 	if($email&&$password) { //check if the field username and password have values
-		$query = "SELECT hash,username FROM Users WHERE email=?";
+		$query = "SELECT hash,username,priv FROM Users WHERE email=?";
 		
 		$sth = $link->prepare($query);
 
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 		$sth->execute();
 
 		/* bind result variables */
-		$sth->bind_result($hash, $username);
+		$sth->bind_result($hash, $username, $priv);
 
 		$sth->fetch();
 
@@ -38,12 +38,13 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 		if($loginok == TRUE) {//if it is the same password, script will continue.
 			if($remember == "yes") {//if the Remember me is checked, it will create a cookie.
 				setcookie("username", $username, time()+7600, "/", ".localhost"); //here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the localhost domain.
-				header("Location: ./loggedin/loggedin.php");
+				header("Location: ./loggedin/index.php");
 				exit();
 			}
 			else if($remember=="") {//if the Remember me isn't checked, it will create a session.
 				$_SESSION['username']=$username;
-				header("Location: ./loggedin/loggedin.php");
+				$_SESSION['priv']=$priv;
+				header("Location: ./loggedin/index.php");
 				exit();
 			}
 		}
@@ -53,7 +54,7 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 
 }
 else{
-	header("Location: ./index.php?mydick=sex");
+	header("Location: ./index.php");
 }
  
 ?>

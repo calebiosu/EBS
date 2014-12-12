@@ -14,7 +14,7 @@
 
 <html>
 	<head> 
-		<title> Vidly </title>
+		<title> Electronic Book Sale System </title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -24,7 +24,7 @@
 			<div class="navbar navbar-default navbar-fixed-top">
 				<div class="navbar-inner">
 					<ul class="nav navbar-nav">
-						<li id='home'><a class="navbar-brand" href="loggedin.php">Home</a></li>
+						<li id='home'><a class="navbar-brand" href="./">Home</a></li>
 						<li id='browse' class='active'><a href="browse.php">Browse</a></li>
 						<li id='logout'><a href="logout.php">Logout</a></li>
 					</ul>

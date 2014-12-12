@@ -1,5 +1,5 @@
 <?php
-	session_start(); //start session
+	if(!isset($_SESSION)){ session_start(); } //start session
 
 	include 'config.php'; //include the config.php file
 
@@ -13,4 +13,5 @@
 			return $loggedin;
 		}
 	}
+
 ?>

@@ -3,8 +3,7 @@ from mechanize import *
 
 def getBooks():
 	f=open('books.csv','w',0)
-	f.write('\t'.join(['title', 'author', 'descr', 'ISBN', 'ISBN13', 'genres', 'imagePath']))
-	f.write('\n')
+	f.write('\t'.join(['title', 'author', 'descr', 'ISBN', 'ISBN13', 'genres', 'imagePath']) + '\n')
 	br=Browser()
 	br.set_handle_robots(False)
 	base_url = 'http://www.goodreads.com'
@@ -33,7 +32,7 @@ def getBooks():
 		# get description
 		desc_span = div.find('div',{'id':'description'}).find_all('span')
 		desc_container = desc_span[1] if len(desc_span) > 1 else desc_span[0]
-		descr = '\\n'.join(''.join(desc_container.find_all(text=True)).strip().split('\n'))
+		descr = '<>'.join([part for part in desc_container.find_all(text=True) if len(part.strip()) > 0])
 		
 		# get details
 		isbn_ = div.find('div',{'id':'bookDataBox'}).find('div',text='ISBN')
@@ -48,7 +47,10 @@ def getBooks():
 		for each in divs:
 			left = ' '.join([element.strip() for element in each.find('div',{'class':'left'}).find_all(text=True) if len(element.strip()) > 0])
 			genres.append(left)
+		
+		# write to file
 		f.write("\t".join([title.encode('utf-8'), author.encode('utf-8'), descr.encode('utf-8'), ISBN.encode('utf-8'), ISBN13.encode('utf-8'), ",".join(genres).encode('utf-8'), img_file.encode('utf-8')]))
+		print books.index(book)
 		f.write('\n')
 	f.close()
 
