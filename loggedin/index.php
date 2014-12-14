@@ -11,7 +11,6 @@
 	else{
 		$username = $_SESSION['username'];
 		$priv = $_SESSION['priv'];
-		echo $priv;
 	}
 ?>
 
@@ -28,19 +27,22 @@
 	<body>
 		<header>
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">	
 				<div class="navbar-inner">
 					<ul class="nav navbar-nav navbar-left">
-						<li id='home' class="active"><a class="navbar-brand" href="./">Home</a></li>
-						<li id='browse'><a href="profile.php">Account</a></li>
+						<li id='browse' class='active'><a href="profile.php">Profile</a></li>
 						<li id='logout'><a href="browse.php">Browse</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search" id="searchForm">
+					<form class="navbar-form" role="search" id="searchForm">
 				        <div class="form-group">
-				        	<input type="text" class="form-control" placeholder="Search by Author, Title, Genre" name="q" style='width:30em'>
+				        	<input type="text" class="form-control" placeholder="Search by Author, Title, Genre" name="q" style='width:50em'>
 				        </div>
 				    </form>
-				    
+					<ul class="nav navbar-nav navbar-right">
+					    <li id='logout'><a href="logout.php">Logout</a></li>
+					</ul>   
 				</div>
+			</div>
 		</nav>
 		</header>
 		<div class="main">

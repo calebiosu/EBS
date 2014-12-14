@@ -40,7 +40,7 @@
 					</ul>
 					<form class="navbar-form navbar-left" role="search" id="searchForm">
 				        <div class="form-group">
-				        	<input type="text" class="form-control" placeholder="Search by Author, Title, Genre" name="q" style='width:30em'>
+				        	<input type="text" class="form-control" placeholder="Search by Author, Title, Genre" name="q" style='width:50em'>
 				        </div>
 				    </form>
 				    
@@ -49,7 +49,7 @@
 		</header>
 		<div class="main" style="margin-left:50px;margin-right:50px;">
 			<div id="imageCol" style="float:left; width:20%;">
-				<img src=<?php echo '../images/'.$bookInfo['imagePath'];?> style="max-width: 150px;"></img>
+				<img src=<?php echo '../images/'.urlencode($bookInfo['imagePath']);?> style="max-width: 150px;"></img>
 			</div>
 			<div id="infoCol" style="float:left; width:59%">
 				<h2><?php echo $bookInfo['title'];?></h2>
