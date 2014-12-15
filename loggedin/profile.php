@@ -1,8 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
 <?php 
-	include '../functions.php';
 	if(!isset($_SESSION)){ session_start(); }
 	// if not already logged in, take them to login page
 	if (!(isset($_SESSION['username']) && $_SESSION['username'] != '')) {
@@ -30,8 +28,8 @@
 				<div class="navbar-inner">
 					<ul class="nav navbar-nav navbar-left">
 						<li id='home' class="navbar-brand"><a href="#">EBS</a></li>
-						<li id='account'><a href="profile.php">Profile</a></li>
-						<li id='browse' class='active'><a href="#">Browse</a></li>
+						<li id='profile' class='active'><a href="profile.php">Profile</a></li>
+						<li id='browse'><a href="../">Browse</a></li>
 					</ul>
 					<form class="navbar-form navbar-left" role="search" id="searchForm" style="float:left;">
 				        <div class="form-group">
@@ -46,34 +44,16 @@
 		</nav>
 		</header>
 		<div class="main">
-			<div id="browse" style="float:left; width:70%; margin-left:70px;">
-				<h2 style="margin-left:-50px;">Browse Our Books</h2>
-				<?php
-					$link = connect();
-					$query = "SELECT * FROM `Books`";
-					$res = mysqli_query($link, $query);
-
-					while($row = mysqli_fetch_array($res)) {
-						echo
-							"<div><a href='book.php?title=".urlencode($row['title'])."'>".
-								"<div style='display:table-cell; width: 33%'>".
-									"<img src='../images/".urlencode($row['imagePath'])."' style='width: 150px;'><img>".
-								"</div>".
-								"<div style='display:table-cell; width: 67%; vertical-align:top;'>".
-									"<div>".
-										$row['title'].
-									"</div>".
-									"<div> by ".
-										$row['author'].
-									"</div>".
-									"<div>".
-										$row['genres'].
-									"</div>".
-								"</div>".
-							"</a></div></br>";
-					}
-					mysqli_close($link);
-				?>
+			<div id="profile" style="float:left; width:70%;">
+				<div id="profCol" style="float:left;width:33%;">
+					<h2>Profile</h2>
+				</div>
+				<div id="bidsCol" style="float:left;width:33%;">
+					<h2>Bids</h2>
+				</div>
+				<div id="commentsCol" style="float:left;width:33%;">
+					<h2>Recent Comments</h2>
+				</div>
 			</div>
 			<div id="recommendations" style="float:left; width:30%; text-align:left;">
 				<h2>Your Recommendations</h2>

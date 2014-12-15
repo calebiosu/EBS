@@ -3,12 +3,9 @@ include 'functions.php';  //include the functions.php - very important
 
 if (isset($_POST['submit'])) {//check if the submit button is pressed
 	//get data
+	$link = connect();
 	$email = mysqli_real_escape_string($link, $_POST['email']);
 	$password = mysqli_real_escape_string($link, $_POST['password']);
-	$remember = "";
-	if (isset($_POST['remember'])){
-		$remember = $_POST['remember'];
-	}
 	
 	if($email&&$password) { //check if the field username and password have values
 		$query = "SELECT hash,username,priv FROM Users WHERE email=?";
@@ -32,28 +29,32 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 
 		else {
 			header("Location: ./index.php?failed=1");
+			mysqli_close($link);
 			exit();
 		}
 		 
 		if($loginok == TRUE) {//if it is the same password, script will continue.
 			if($remember == "yes") {//if the Remember me is checked, it will create a cookie.
 				setcookie("username", $username, time()+7600, "/", ".localhost"); //here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the localhost domain.
+				mysqli_close($link);
 				header("Location: ./loggedin/index.php");
 				exit();
 			}
 			else if($remember=="") {//if the Remember me isn't checked, it will create a session.
 				$_SESSION['username']=$username;
 				$_SESSION['priv']=$priv;
+				mysqli_close($link);
 				header("Location: ./loggedin/index.php");
 				exit();
 			}
 		}
 	}
 	else
-		die("Please enter a username and password");
-
+		mysqli_close($link);
+		die("Please enter a username and password".$username." ".$password);
 }
 else{
+	mysqli_close($link);
 	header("Location: ./index.php");
 }
  

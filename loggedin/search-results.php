@@ -1,4 +1,5 @@
 <?php
+	include '../functions.php';
 	if(!isset($_SESSION)){ session_start(); }
 	// if not already logged in, take them to login page
 	if (!(isset($_SESSION['username']) && $_SESSION['username'] != '')) {
@@ -32,7 +33,7 @@
 
 	function getBooks($q){
 		/* Conduct Query */
-		include '../functions.php';
+		$link = connect();
 		$query = "SELECT title, author, genres, imagePath FROM Books";
 		$res = mysqli_query($link,$query);
 		$books = [];
@@ -41,6 +42,7 @@
 				array_push($books, [$row[0],$row[1],$row[2], $row[3]]);
 			}
 		}
+		mysqli_close($link);
 		return $books;
 	}
 

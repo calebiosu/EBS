@@ -12,10 +12,16 @@
 		$priv = $_SESSION['priv'];
 	}
 	if(isset($_GET['title'])){
-		$title = mysql_real_escape_string(urldecode($_GET['title']));
+		$link = connect();
+		$title = mysqli_real_escape_string($link,urldecode($_GET['title']));
+		$_SESSION['title'] = $title;
 		$query = "SELECT * FROM `Books` WHERE `title` = '$title'";
 		$res = mysqli_query($link,$query) or die(mysql_error());
 		$bookInfo = $res->fetch_array();
+		mysqli_close($link);	
+	}
+	else {
+		header("Location: ../");
 	}
 ?>
 
@@ -32,27 +38,40 @@
 	<body>
 		<header>
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-				<div class="navbar-inner">
+			<div class="navbar-inner">
 					<ul class="nav navbar-nav navbar-left">
-						<li id='home' class="active"><a class="navbar-brand" href="./">Home</a></li>
-						<li id='browse'><a href="profile.php">Account</a></li>
-						<li id='logout'><a href="browse.php">Browse</a></li>
+						<li id='home' class="navbar-brand"><a href="#">EBS</a></li>
+						<li id='account'><a href="profile.php">Profile</a></li>
+						<li id='browse'><a href="../">Browse</a></li>
 					</ul>
-					<form class="navbar-form navbar-left" role="search" id="searchForm">
+					<form class="navbar-form navbar-left" role="search" id="searchForm" style="float:left;">
 				        <div class="form-group">
 				        	<input type="text" class="form-control" placeholder="Search by Author, Title, Genre" name="q" style='width:50em'>
 				        </div>
 				    </form>
-				    
+					<ul class="nav pull-right">
+						<li id='logout'><a href="cart.php">Cart</a></li>
+						<li id='logout'><a href="logout.php">Log Out</a></li>
+					</ul>
 				</div>
 		</nav>
 		</header>
-		<div class="main" style="margin-left:50px;margin-right:50px;">
-			<div id="imageCol" style="float:left; width:20%;">
-				<img src=<?php echo '../images/'.urlencode($bookInfo['imagePath']);?> style="max-width: 150px;"></img>
+		<div class="main" style="margin-left:10px;margin-right:50px;border-top: 1px solid; border-bottom: 1px solid;">
+			<div id="imageCol" style="padding-top:20px;display:table-cell; width:20%; vertical-align:top; border-right: 1px dashed; text-align:center;">
+				<div>
+					<img src=<?php echo '../images/'.urlencode($bookInfo['imagePath']);?> style="max-width: 150px;"></img>
+				</div>
+				<div>
+					<button type="button">Place Bid</button>
+				</div>
+				<div>
+					<button type="button">Add to Cart</button>
+				</div>
+				</br>
+				<div></div>
 			</div>
-			<div id="infoCol" style="float:left; width:59%">
-				<h2><?php echo $bookInfo['title'];?></h2>
+			<div id="infoCol" style="display:table-cell; width:57%; border-right: 1px dashed; padding-right:5px; padding-left:15px; vertical-align: top;">
+				<h3><?php echo $bookInfo['title'];?></h3>
 				<div><span>by </span><?php echo $bookInfo['author'];?></div></br>
 				<div style="">
 					<?php
@@ -80,8 +99,8 @@
 					;?>
 				</div>
 			</div>
-			<div id="genreCol" style="float:left; width:20%">
-				<h3>Genres</h3>
+			<div id="genreCol" style="display:table-cell; width:18%;vertical-align: top; padding-left:15px;">
+				<h2><i>Genres</i></h2>
 				<div style="">
 					<?php
 					foreach(split(',',$bookInfo['genres']) as $genre) {
@@ -91,10 +110,66 @@
 				</div>
 			</div>
 		</div>
+		<div class="comments" style="margin-left:50px;margin-right:50px;margin-bottom:50px;">
+			<div style="display:table-cell; width:80%;vertical-align:top; border-right: 1px dashed;">
+				<h2><i>Comments</i></h2>
+				<div>
+					<form id="comment">
+						<input class="form-control" type="text" name="commentText" style="width:95%;" placeholder="Enter Comment"></input>
+						<button type="submit" class="btn btn-default">Post</button>
+					</form>
+				</div>
+				<div id="comments"></div>
+			</div>
+			<div style="display:table-cell;width:20%;vertical-align:top;padding-left: 10px; ">
+				<h2><i>Reccomended</i></h2>
+			</div>
+		</div>
 	</body>
 	<footer>
 		<script type="text/javascript">
 			$('input[name="q"]').liveSearch({url: 'search-results.php?q='});
+			
+			$(document).ready(function() {
+				$.ajax({
+					type: 'POST',
+					url: 'actions.php',
+					data: {'action':'comment',
+							'data':null},
+					dataType: 'JSON',
+					success: function(result,status,xhr) {
+						$.each(result.reverse(), function(i,e) {
+							$('#comments').append(e);
+						});
+					},
+					error: function(e,f,g){
+						console.log('error: '+g);
+					}
+				});
+			});
+
+			$('#comment').submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: 'actions.php',
+					data: {'action':'comment',
+							'data':$('#comment').serializeArray()},
+					dataType: 'JSON',
+					success: function(result,status,xhr) {
+						$('$comments').hide();
+						$('#comments').empty();
+						console.log(result);
+						$.each(result.reverse(), function(i,e) {	
+							$('#comments').append(e);
+						});
+						$('$comments').fadeIn();
+					},
+					error: function(e,f,g){
+						console.log('error: '+g);
+					}
+				});
+			});
 		</script>
 	</footer>
 </html>

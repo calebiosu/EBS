@@ -25,10 +25,12 @@ form#signup {
 }
 
 button[type="submit"] {
-  margin-top: 10px;
   position: relative;
-  width: 200px;
-  margin-left: 65px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+  vertical-align: top;
 }
 
 span {

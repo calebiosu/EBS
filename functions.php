@@ -4,7 +4,10 @@
 	include 'config.php'; //include the config.php file
 
 	// connect to database
-	$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE) or die('Error' . mysqli_error($link));
+	function connect() {
+		$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_DATABASE) or mysqli_connect_error();
+		return $link;
+	}
 
 	//login chech function
 	function loggedin() {

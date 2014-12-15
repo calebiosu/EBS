@@ -3,6 +3,7 @@
 include 'functions.php';
 
 if (isset($_POST['submit'])) {//check if the submit button is pressed
+	$link = connect();
 	//get data
 	$firstname = $link->real_escape_string(trim($_POST['firstname']));
 	$lastname = $link->real_escape_string(trim($_POST['lastname']));
@@ -28,12 +29,12 @@ if (isset($_POST['submit'])) {//check if the submit button is pressed
 
 	$res = mysqli_query($link,$query);
 	
-	echo $_POST['priv'];
-	echo $priv;
 	if($res){
+		mysqli_close($link);
 		header("Location: ./index.php?success");
 	}
 	else{
+		mysqli_close($link);
 		header("Location: ./signup.php");
 	}
 }

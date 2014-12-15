@@ -33,6 +33,9 @@ else{
 				<div class="login">
 					<button class="btn btn-lg btn-primary btn-block" type="button" name="login">Login</button>
 				</div>
+				<div class="signup">
+					<a href="signup.php"><button class="btn btn-lg btn-primary btn-block" type="button" name="login">Sign up for a new account</button></a>
+				</div>
 				<?php if(isset($_GET["failed"])): ?>
 					<div id="failed"> <?php echo "Please try again"; ?> </div>
 				<?php endif; ?>
@@ -41,12 +44,9 @@ else{
 					<input type="email" class="form-control" name="email" placeholder="Email address" required autofocus />
 	        		<input type="password" class="form-control" name="password" placeholder="Password" required />
 					<label class="checkbox">
-						<input type="checkbox" value="remember-me" name="remember" /> Remember me
+						<input type="checkbox" value="remember-me" name="remember"/> Remember me
 					</label>
 					<button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
-					<p class="text-center sign-up">
-						<strong><a href="signup.php">Sign up</a></strong> for a new account
-					</p>
 				</form>		
 			</div>
 		</div>

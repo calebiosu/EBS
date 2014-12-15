@@ -31,6 +31,11 @@ body {
   padding: 10px;
 }
 
+.signup {
+  display: inline-block;
+  padding: 10px;
+}
+
 button[name="visitor"] {
   width: 200px;
 }
